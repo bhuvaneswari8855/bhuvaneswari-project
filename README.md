@@ -66,6 +66,10 @@ The project follows an end-to-end data analytics workflow using Python, SQL, Mac
 - Power BI Dashboard
 - Summary Report
 
+## 📊 Power BI Dashboard
+
+![Credit Card Fraud Detection Dashboard](WhatsApp%20Image%202026-08-11%20at%208.44.23%20PM.jpeg)
+
 ## 🎯 Conclusion
 
 This project demonstrates how Python, SQL, Machine Learning, and Power BI can be combined to analyze transaction data, detect potential fraud, and generate actionable business insights.
