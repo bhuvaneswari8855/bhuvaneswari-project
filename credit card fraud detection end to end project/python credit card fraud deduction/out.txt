@@ -1,0 +1,232 @@
+C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\plotting\_matplotlib\core.py:1613: UserWarning: Attempting to set identical low and high xlims makes transformation singular; automatically expanding.
+  ax.set_xlim(left, right)
+C:\Users\HP\OneDrive\Desktop\project2\project2.py:301: Pandas4Warning: For backward compatibility, 'str' dtypes are included by select_dtypes when 'object' dtype is specified. This behavior is deprecated and will be removed in a future version. Explicitly pass 'str' to `include` to select them, or to `exclude` to remove them and silence this warning.
+See https://pandas.pydata.org/docs/user_guide/migration-3-strings.html#string-migration-select-dtypes for details on how to write code that works with pandas 2 and 3.
+  categorical_features = X_train.select_dtypes(include=["object", "category"]).columns.tolist()
+Loaded data: (20000, 26)
+
+Data cleaning:
+No missing values found.
+No duplicate rows found.
+
+Outlier detection (IQR) counts per numeric column:
+  amount_usd: 2061 outliers
+  hours_since_last_txn: 955 outliers
+  txn_count_last_24h: 336 outliers
+  distance_from_home_km: 904 outliers
+  card_age_months: 177 outliers
+  account_balance_usd: 1569 outliers
+  velocity_score: 213 outliers
+  merchant_risk_score: 358 outliers
+Rows before cleaning: 20000, after cleaning: 20000
+
+Feature engineering:
+Created 10 engineered feature(s): ['amount_log', 'high_amount', 'balance_ratio', 'low_balance_flag', 'high_merchant_risk', 'merchant_category_freq', 'channel_freq', 'card_type_freq', 'device_type_freq', 'age_bucket']
+
+Columns after cleaning and feature engineering: ['transaction_id', 'amount_usd', 'merchant_category', 'card_type', 'auth_method', 'channel', 'device_type', 'is_foreign_transaction', 'hours_since_last_txn', 'txn_count_last_24h', 'distance_from_home_km', 'card_age_months', 'customer_age', 'account_balance_usd', 'is_new_merchant', 'used_vpn', 'ip_country_mismatch', 'billing_shipping_mismatch', 'cvv_retry_count', 'velocity_score', 'time_of_day_hour', 'day_of_week', 'is_ai_generated_scam_attempt', 'merchant_risk_score', 'prior_disputes', 'is_fraud', 'amount_log', 'high_amount', 'balance_ratio', 'low_balance_flag', 'is_night', 'is_peak_hour', 'is_weekend', 'high_velocity', 'high_merchant_risk', 'has_prior_disputes', 'foreign_and_vpn', 'new_high_risk_merchant', 'mismatch_pair', 'merchant_category_freq', 'channel_freq', 'card_type_freq', 'device_type_freq', 'age_bucket']
+
+First 5 rows after cleaning and feature engineering:
+ transaction_id  amount_usd merchant_category  card_type       auth_method channel   device_type  is_foreign_transaction  hours_since_last_txn  txn_count_last_24h  distance_from_home_km  card_age_months  customer_age  account_balance_usd  is_new_merchant  used_vpn  ip_country_mismatch  billing_shipping_mismatch  cvv_retry_count  velocity_score  time_of_day_hour  day_of_week  is_ai_generated_scam_attempt  merchant_risk_score  prior_disputes  is_fraud  amount_log  high_amount  balance_ratio  low_balance_flag  is_night  is_peak_hour  is_weekend  high_velocity  high_merchant_risk  has_prior_disputes  foreign_and_vpn  new_high_risk_merchant  mismatch_pair  merchant_category_freq  channel_freq  card_type_freq  device_type_freq age_bucket
+              1       42.86       Restaurants       Visa               OTP  Online Android Phone                   False                 13.54                   2                  22.35               39            25              1080.71            False     False                False                      False                0             0.1                18            3                         False                 42.3               0         0    3.781003        False       0.039622             False     False          True       False          False                True               False            False                   False          False                    2534          6810            8417              5503        <25
+              2        4.75     Online Retail Mastercard         3D Secure  Online Android Phone                   False                  0.71                   2                  35.28               47            33              4463.72             True     False                False                      False                0            25.8                12            4                         False                 28.3               0         0    1.749200        False       0.001064             False     False         False       False          False               False               False            False                   False          False                    3416          6810            6629              5503      25-35
+              3       77.18         Groceries Mastercard         3D Secure  Online           Mac                   False                  0.35                   5                   9.82               51            59               366.25            False      True                False                       True                0            42.3                 5            0                         False                 24.7               1         0    4.359014        False       0.210157             False      True         False       False           True               False                True            False                   False          False                    3242          6810            6629              1359      50-65
+              4        1.69         Streaming       Visa No Authentication     POS Android Phone                   False                  3.42                   6                  19.72               48            28              1345.29             True     False                False                      False                0            28.9                22            6                         False                 56.2               1         0    0.989541        False       0.001255             False      True         False        True           True                True                True            False                    True          False                    1010          5191            8417              5503      25-35
+              5      261.68            Travel       Visa         3D Secure  In-App        iPhone                   False                  2.43                   2                  17.68               43            36              4192.59            False     False                False                      False                0             3.9                 2            4                         False                 32.7               0         0    5.570937        False       0.062400             False      True         False       False          False               False               False            False                   False          False                    1420          3225            8417              4179      35-50
+
+Info after cleaning and feature engineering:
+<class 'pandas.DataFrame'>
+RangeIndex: 20000 entries, 0 to 19999
+Data columns (total 44 columns):
+ #   Column                        Non-Null Count  Dtype   
+---  ------                        --------------  -----   
+ 0   transaction_id                20000 non-null  int64   
+ 1   amount_usd                    20000 non-null  float64 
+ 2   merchant_category             20000 non-null  str     
+ 3   card_type                     20000 non-null  str     
+ 4   auth_method                   20000 non-null  str     
+ 5   channel                       20000 non-null  str     
+ 6   device_type                   20000 non-null  str     
+ 7   is_foreign_transaction        20000 non-null  bool    
+ 8   hours_since_last_txn          20000 non-null  float64 
+ 9   txn_count_last_24h            20000 non-null  int64   
+ 10  distance_from_home_km         20000 non-null  float64 
+ 11  card_age_months               20000 non-null  int64   
+ 12  customer_age                  20000 non-null  int64   
+ 13  account_balance_usd           20000 non-null  float64 
+ 14  is_new_merchant               20000 non-null  bool    
+ 15  used_vpn                      20000 non-null  bool    
+ 16  ip_country_mismatch           20000 non-null  bool    
+ 17  billing_shipping_mismatch     20000 non-null  bool    
+ 18  cvv_retry_count               20000 non-null  int64   
+ 19  velocity_score                20000 non-null  float64 
+ 20  time_of_day_hour              20000 non-null  int64   
+ 21  day_of_week                   20000 non-null  int64   
+ 22  is_ai_generated_scam_attempt  20000 non-null  bool    
+ 23  merchant_risk_score           20000 non-null  float64 
+ 24  prior_disputes                20000 non-null  int64   
+ 25  is_fraud                      20000 non-null  int64   
+ 26  amount_log                    20000 non-null  float64 
+ 27  high_amount                   20000 non-null  bool    
+ 28  balance_ratio                 20000 non-null  float64 
+ 29  low_balance_flag              20000 non-null  bool    
+ 30  is_night                      20000 non-null  bool    
+ 31  is_peak_hour                  20000 non-null  bool    
+ 32  is_weekend                    20000 non-null  bool    
+ 33  high_velocity                 20000 non-null  bool    
+ 34  high_merchant_risk            20000 non-null  bool    
+ 35  has_prior_disputes            20000 non-null  bool    
+ 36  foreign_and_vpn               20000 non-null  bool    
+ 37  new_high_risk_merchant        20000 non-null  bool    
+ 38  mismatch_pair                 20000 non-null  bool    
+ 39  merchant_category_freq        20000 non-null  int64   
+ 40  channel_freq                  20000 non-null  int64   
+ 41  card_type_freq                20000 non-null  int64   
+ 42  device_type_freq              20000 non-null  int64   
+ 43  age_bucket                    20000 non-null  category
+dtypes: bool(17), category(1), float64(8), int64(13), str(5)
+memory usage: 4.3 MB
+Saved cleaned data: cleaned_data.csv
+
+Business KPIs:
+Total transactions: 20000
+Fraud transactions: 339
+Fraud rate: 0.0169 (1.70%)
+Total transaction volume: 2,648,491.94
+Average transaction amount: 132.42
+Total fraud volume: 61,443.70
+Average fraud transaction amount: 181.25
+Average non-fraud transaction amount: 131.58
+Fraud volume share: 0.0232 (2.32%)
+Average velocity (fraud): 28.97
+Average velocity (non-fraud): 19.65
+Average merchant risk (fraud): 51.39
+Average merchant risk (non-fraud): 37.16
+Fraud rate for new merchants: 0.0350
+Fraud rate for existing merchants: 0.0116
+Fraud rate for foreign transactions: 0.0589
+Fraud rate for domestic transactions: 0.0142
+Top card types by fraud rate:
+card_type
+Amex          0.020141
+Discover      0.019550
+Visa          0.017821
+Mastercard    0.015387
+RuPay         0.013363
+Top merchant categories by fraud rate:
+merchant_category
+Crypto Exchange    0.049911
+Gift Cards         0.043760
+Gaming             0.036680
+Electronics        0.023622
+Streaming          0.020792
+
+is_fraud value counts:
+is_fraud
+0    19661
+1      339
+Name: count, dtype: int64
+
+amount_usd summary:
+count    20000.000000
+mean       132.424597
+std        256.963666
+min          1.000000
+25%         26.235000
+50%         57.510000
+75%        131.752500
+max       6872.690000
+Name: amount_usd, dtype: float64
+
+amount_usd summary by is_fraud:
+            count        mean         std   min    25%    50%     75%      max
+is_fraud                                                                      
+0         19661.0  131.582739  254.241020  1.00  26.21  57.35  130.88  6872.69
+1           339.0  181.249853  380.460485  4.09  28.62  69.77  165.32  3356.46
+
+Saved plot to fraud_summary_plots.png
+Saved plot: eda_plots\fraud_distribution_count.png
+Saved plot: eda_plots\fraud_distribution_pie.png
+Saved plot: eda_plots\amount_histogram.png
+Saved plot: eda_plots\amount_histogram_by_fraud.png
+Saved plot: eda_plots\amount_boxplot_by_fraud.png
+Saved plot: correlation_heatmap.png
+Saved plot: eda_plots\merchant_category_counts.png
+Saved plot: eda_plots\merchant_category_fraud_rate.png
+Saved plot: eda_plots\channel_counts.png
+Saved plot: eda_plots\channel_fraud_rate.png
+Saved plot: eda_plots\card_type_counts.png
+Saved plot: eda_plots\card_type_fraud_rate.png
+Saved plot: eda_plots\device_type_counts.png
+Saved plot: eda_plots\device_type_fraud_rate.png
+Saved plot: eda_plots\auth_method_counts.png
+Saved plot: eda_plots\auth_method_fraud_rate.png
+Saved plot: eda_plots\day_of_week_counts.png
+Saved plot: eda_plots\day_of_week_fraud_rate.png
+Saved plot: eda_plots\hourly_transactions.png
+Saved plot: eda_plots\weekday_transactions.png
+Saved plot: eda_plots\country_counts.png
+Saved plot: eda_plots\country_fraud_rate.png
+Saved plot: eda_plots\monthly_fraud_trend.png
+Saved plot: eda_plots\merchant_risk_score_histogram.png
+Saved plot: eda_plots\customer_age_distribution.png
+Saved plot: eda_plots\velocity_score_distribution.png
+Saved plot: eda_plots\account_balance_distribution.png
+
+Hyperparameter tuning:
+Best hyperparameters: {'classifier__max_depth': 20, 'classifier__max_features': 'sqrt', 'classifier__min_samples_split': 2, 'classifier__n_estimators': 100}
+Best cross-validated ROC AUC: 0.8882
+
+Running stratified cross-validation with tuned model...
+
+Cross-validation evaluation
+Accuracy: 0.983
+ROC AUC: 0.8967
+Average precision: 0.2344
+
+Classification report:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99     19661
+           1       0.00      0.00      0.00       339
+
+    accuracy                           0.98     20000
+   macro avg       0.49      0.50      0.50     20000
+weighted avg       0.97      0.98      0.97     20000
+
+
+Confusion matrix:
+[[19661     0]
+ [  339     0]]
+Saved plot: confusion_matrix.png
+Saved plot: roc_curve.png
+Saved plot: eda_plots\precision_recall_curve.png
+
+Training final model on full dataset...
+
+Feature importance:
+               feature  importance
+   merchant_risk_score    0.063336
+        velocity_score    0.060805
+   account_balance_usd    0.045385
+            amount_usd    0.045370
+            amount_log    0.044916
+ distance_from_home_km    0.044237
+       cvv_retry_count    0.043746
+         balance_ratio    0.043720
+          customer_age    0.037478
+       card_age_months    0.037238
+      time_of_day_hour    0.033251
+    txn_count_last_24h    0.029776
+           day_of_week    0.024634
+merchant_category_freq    0.022396
+      device_type_freq    0.019178
+Saved plot: eda_plots\feature_importances.png
+Saved feature importance CSV: feature_importance.csv
+Saved predictions CSV: predictions.csv
+
+Saved trained model to fraud_model.joblib
+Saved business report: fraud_summary.txt
+Saved summary PDF: summary_report.pdf
+
+Saved business report and summary PDF.
+The trained model is saved as fraud_model.joblib.

@@ -1,0 +1,67 @@
+Business and model summary
+==========================
+Total transactions: 20,000
+Fraud transactions: 339
+Fraud rate: 0.0169 (1.70%)
+Total transaction volume: 2,648,491.94
+Average transaction amount: 132.42
+Total fraud volume: 61,443.70
+Average fraud transaction amount: 181.25
+Average non-fraud transaction amount: 131.58
+Fraud volume share: 0.0232 (2.32%)
+Average velocity (fraud): 28.97
+Average velocity (non-fraud): 19.65
+Average merchant risk (fraud): 51.39
+Average merchant risk (non-fraud): 37.16
+Fraud rate for new merchants: 0.0350
+Fraud rate for existing merchants: 0.0116
+Fraud rate for foreign transactions: 0.0589
+Fraud rate for domestic transactions: 0.0142
+
+Top card types by fraud rate:
+  Amex: 0.0201
+  Discover: 0.0196
+  Visa: 0.0178
+  Mastercard: 0.0154
+  RuPay: 0.0134
+
+Top merchant categories by fraud rate:
+  Crypto Exchange: 0.0499
+  Gift Cards: 0.0438
+  Gaming: 0.0367
+  Electronics: 0.0236
+  Streaming: 0.0208
+
+Model evaluation
+----------------
+Accuracy: 0.9830
+ROC AUC: 0.8967
+Average precision: 0.2344
+
+Classification report:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99     19661
+           1       0.00      0.00      0.00       339
+
+    accuracy                           0.98     20000
+   macro avg       0.49      0.50      0.50     20000
+weighted avg       0.97      0.98      0.97     20000
+
+
+Confusion matrix:
+[[19661,     0],
+ [  339,     0]]
+
+Top feature importances:
+              feature  importance
+  merchant_risk_score    0.063336
+       velocity_score    0.060805
+  account_balance_usd    0.045385
+           amount_usd    0.045370
+           amount_log    0.044916
+distance_from_home_km    0.044237
+      cvv_retry_count    0.043746
+        balance_ratio    0.043720
+         customer_age    0.037478
+      card_age_months    0.037238
